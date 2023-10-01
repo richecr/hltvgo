@@ -1,4 +1,4 @@
-module github.com/richecr/hltv-go
+module github.com/richecr/hltvgo
 
 go 1.21.1
 

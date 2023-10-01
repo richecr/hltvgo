@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/go-rod/rod"
-	"github.com/richecr/hltv-go/lib/api"
-	"github.com/richecr/hltv-go/lib/entity"
+	"github.com/richecr/hltvgo/lib/api"
+	"github.com/richecr/hltvgo/lib/entity"
 )
 
 const (
@@ -36,8 +36,8 @@ func GetMatches() ([]entity.Match, error) {
 func GetMatch(divMatches rod.Elements, matches chan []entity.Match) {
 	var partial []entity.Match
 	for _, row := range divMatches {
-		principal := row.MustElement("a.match.a-reset")
-		matchInfoEmpty, _ := principal.Element(".matchInfoEmpty")
+		main := row.MustElement("a.match.a-reset")
+		matchInfoEmpty, _ := main.Element(".matchInfoEmpty")
 		if matchInfoEmpty == nil {
 			tags := strings.Split(row.MustElement("a").MustText(), "\n")
 			var team1_name, team2_name, event string = tags[2], tags[3], tags[4]
@@ -54,7 +54,7 @@ func GetMatch(divMatches rod.Elements, matches chan []entity.Match) {
 			}
 			team1 := GetTeam(row, team1_name)
 			team2 := GetTeam(row, team2_name)
-			id := strings.Split(*principal.MustAttribute("href"), "/")[2]
+			id := strings.Split(*main.MustAttribute("href"), "/")[2]
 			match := entity.NewMatch(id, event, date, live, *team1, *team2)
 			partial = append(partial, *match)
 		}

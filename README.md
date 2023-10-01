@@ -15,6 +15,12 @@ gopy pkg -name=hltvsdk -author="Rich Ramalho" -email="richelton14@gmail.com" -de
 python setup.py bdist_wheel
 ```
 
+To publish to PyPi you need to use this command:
+
+```sh
+python -m build
+```
+
 #### Install local (test)
 
 ```sh

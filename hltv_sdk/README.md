@@ -2,7 +2,19 @@
 
 The unofficial HLTV Python SDK
 
-## Usage
+Table of contents
+
+- [Installation](#installation)
+- [Operations](#operations)
+    - [GetMatches](#getmatches)
+
+## Installation
+
+```sh
+pip install hltvsdk
+```
+
+## Operations
 
 ### GetMatches
 

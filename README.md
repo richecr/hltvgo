@@ -1,7 +1,28 @@
-# hltvgo
+# hltvgo - This is an unofficial library of hltv.org (Under development)
 
+Table of contents
 
-### Go to Python3
+- [Usage](#usage)
+- [SDKs](#sdks)
+- [Go to Python](#go-to-python)
+    - [Generate package Python](#generate-package-python)
+    - [Generate dist](#generate-dist)
+    - [Install local (test)](#install-local-test)
+    - [Uninstall local (test)](#uninstall-local-test)
+
+## Usage
+
+A library written in Go with the aim of allowing the extraction of information from the https://www.hltv.org/ website.
+
+:warning: **WARNING:** This is an unofficial library and if it is used in a way that breaks hltv.org rules, your account may be banned or your IP blocked by Cloudflare protection.
+
+Our intention is to write in Go and create an SDK for other programming languages, the first will be python as it has an easy way to convert to a Python library using gopy.
+
+## SDKs
+
+- [Python SDK](hltv_sdk/README.md)
+
+## Go to Python3
 
 #### Generate package Python
 

@@ -53,11 +53,13 @@ func GetMatch(divMatches rod.Elements, matches chan []entity.Match, events []ent
 					*row.MustElement(".matchTime").MustAttribute("data-unix"),
 				)
 			}
+			star := 5 - len(row.MustElement(".matchRating").MustElements(".faded"))
+			format := row.MustElement(".matchMeta").MustText()
 			team1 := GetTeam(row, team1_name)
 			team2 := GetTeam(row, team2_name)
 			event := FindEventByName(event_name, events)
 			id := strings.Split(*main.MustAttribute("href"), "/")[2]
-			match := entity.NewMatch(id, event, date, live, *team1, *team2)
+			match := entity.NewMatch(id, format, star, event, date, live, *team1, *team2)
 			partial = append(partial, *match)
 		}
 	}

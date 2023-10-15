@@ -1,6 +1,7 @@
 package operations
 
 import (
+	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -14,8 +15,14 @@ const (
 	matchesURL = "https://www.hltv.org/matches"
 )
 
-func GetMatches() ([]entity.Match, error) {
-	page := api.GetPage(matchesURL)
+type Filters struct {
+	Event     string
+	EventType string
+}
+
+func GetMatches(filters Filters) ([]entity.Match, error) {
+	query := AddFilters(filters)
+	page := api.GetPage(matchesURL + query)
 	defer page.MustClose()
 
 	events := GetEvents(page)
@@ -32,6 +39,22 @@ func GetMatches() ([]entity.Match, error) {
 	go GetMatch(divMatches[len(divMatches)/2:], matches, events)
 
 	return append(<-matches, <-matches...), nil
+}
+
+func AddFilters(filters Filters) string {
+	values := url.Values{}
+	if filters.Event != "" {
+		values.Add("event", filters.Event)
+	}
+	if filters.EventType != "" {
+		values.Add("eventType", filters.EventType)
+	}
+
+	query := values.Encode()
+	if query != "" {
+		return "?" + query
+	}
+	return ""
 }
 
 func GetMatch(divMatches rod.Elements, matches chan []entity.Match, events []entity.Event) {

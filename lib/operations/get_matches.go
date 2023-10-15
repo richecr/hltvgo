@@ -101,7 +101,7 @@ func FindEventByName(name string, events []entity.Event) entity.Event {
 }
 
 func ConvertStringUnixToDate(dateUnix string) time.Time {
-	i, err := strconv.ParseInt(dateUnix, 10, 64)
+	i, err := strconv.ParseInt(dateUnix[:10], 10, 64)
 	if err != nil {
 		panic(err)
 	}

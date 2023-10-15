@@ -8,12 +8,12 @@ type Match struct {
 	Id       string
 	Team1    Team
 	Team2    Team
-	Event    string
+	Event    Event
 	DateHour time.Time
 	Live     bool
 }
 
-func NewMatch(id, event string, dateHour time.Time, live bool, team1, team2 Team) *Match {
+func NewMatch(id string, event Event, dateHour time.Time, live bool, team1, team2 Team) *Match {
 	return &Match{
 		Id:       id,
 		Team1:    team1,

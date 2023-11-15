@@ -78,8 +78,8 @@ func GetMatch(divMatches rod.Elements, matches chan []entity.Match, events []ent
 			}
 			star := 5 - len(row.MustElement(".matchRating").MustElements(".faded"))
 			format := row.MustElement(".matchMeta").MustText()
-			team1 := GetTeam(row, team1_name)
-			team2 := GetTeam(row, team2_name)
+			team1 := GetTeam(row, team1_name, 1)
+			team2 := GetTeam(row, team2_name, 2)
 			event := FindEventByName(event_name, events)
 			id := strings.Split(*main.MustAttribute("href"), "/")[2]
 			match := entity.NewMatch(id, format, star, event, date, live, *team1, *team2)
@@ -111,9 +111,13 @@ func GetEvents(page *rod.Page) []entity.Event {
 	return events
 }
 
-func GetTeam(row *rod.Element, name string) *entity.Team {
-	id := row.MustAttribute("team1")
-	return entity.NewTeam(*id, name)
+func GetTeam(row *rod.Element, name string, numberTeam int8) *entity.Team {
+	attribute := "team" + strconv.Itoa(int(numberTeam))
+	if id := row.MustAttribute(attribute); id != nil {
+		return entity.NewTeam(*id, name)
+	}
+
+	return entity.NewTeam("", name)
 }
 
 func FindEventByName(name string, events []entity.Event) entity.Event {

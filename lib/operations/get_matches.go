@@ -18,6 +18,9 @@ const (
 type Filters struct {
 	Event     string
 	EventType string
+	LanOnly   bool
+	TopTier   bool
+	Teams     []string
 }
 
 func GetMatches(filters Filters) ([]entity.Match, error) {
@@ -46,8 +49,19 @@ func AddFilters(filters Filters) string {
 	if filters.Event != "" {
 		values.Add("event", filters.Event)
 	}
+
 	if filters.EventType != "" {
 		values.Add("eventType", filters.EventType)
+	}
+
+	if filters.LanOnly {
+		values.Add("predefinedFilter", "lan_only")
+	} else if filters.TopTier {
+		values.Add("predefinedFilter", "top_tier")
+	}
+
+	for _, id := range filters.Teams {
+		values.Add("team", id)
 	}
 
 	query := values.Encode()
